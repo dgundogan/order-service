@@ -52,7 +52,7 @@ java -jar target/order-service-1.0-SNAPSHOT.jar
 
 The endpoint of the application as given in the following table.
 
-1- Register an order
+1) Register an order
 
 |End Point                      | Operation    |Port  |
 |-------------------------------|--------------|------|
@@ -71,7 +71,7 @@ The endpoint of the application as given in the following table.
 
 ```
 
-2- Cancel a registered order
+2) Cancel a registered order
 
 |End Point                         | Operation    |Port  |
 |----------------------------------|--------------|------|
