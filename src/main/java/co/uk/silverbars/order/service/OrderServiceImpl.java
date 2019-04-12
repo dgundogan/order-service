@@ -55,11 +55,9 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.groupingBy(Order::getPrice,Collectors.summingDouble(Order::getQuantity)))
                 .entrySet().stream()
                 .map(it -> ResponseDto.builder().price(it.getKey()).totalQuantity(it.getValue()).build());
-        log.info(result.toString());
         //if orderType is SELL, it returns natural sorted bu price
         //else orderType is BUY, it returns reversed order by price
         if(OrderType.SELL.equals(orderType)){
-            log.info(orderType.name());
             return result
                     .sorted(Comparator.comparingDouble(ResponseDto::getPrice))
                     .collect(Collectors.toList());

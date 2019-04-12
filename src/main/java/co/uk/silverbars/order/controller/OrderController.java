@@ -40,8 +40,6 @@ public class OrderController {
     @GetMapping("/search")
     public ResponseEntity<List<ResponseDto>> getSummaryOrders(
             @RequestParam(value = "orderType") OrderType orderType){
-        log.info("request {}",orderType.name());
-        log.info(service.getOrderSummary(orderType).toString());
         return ResponseEntity.ok(service.getOrderSummary(orderType));
     }
 }
