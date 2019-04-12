@@ -89,13 +89,32 @@ OrderType :
     - SELL
     - BUY
 
-* Sample Order Response
+* Sample Order Response for SELL
 ```json
 
 [{
   "price" : 100,
   "totalQuantity": 22.1
-}]
+},
+{
+  "price" : 200,
+  "totalQuantity": 44.1
+},
+]
+```
+
+* Sample Order Response for BUY
+```json
+
+[{
+  "price" : 200,
+  "totalQuantity": 44
+},
+{
+  "price" : 100,
+  "totalQuantity": 66
+},
+]
 ```
 ## Database
 
