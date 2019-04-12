@@ -28,7 +28,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void givenOrder_whenCallAddOrder_thenSaveInMemoryDb() {
+    public void givenOrder_whenCallAddOrder_thenSaveInMemoryDb(){
         RequestDto dto = RequestDto.builder().userId("user1")
                 .price(100)
                 .quantity(1.3)

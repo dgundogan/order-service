@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/")
-    public ResponseEntity addOrder(RequestDto request){
+    public ResponseEntity addOrder(@Valid RequestDto request){
         log.info("Creating Order: {}",request);
         service.addOrder(request);
         return ResponseEntity.ok().build();
@@ -38,7 +39,9 @@ public class OrderController {
 
     @GetMapping("/search")
     public ResponseEntity<List<ResponseDto>> getSummaryOrders(
-            @RequestParam(value = "orderType", required = true) OrderType orderType){
+            @RequestParam(value = "orderType") OrderType orderType){
+        log.info("request {}",orderType.name());
+        log.info(service.getOrderSummary(orderType).toString());
         return ResponseEntity.ok(service.getOrderSummary(orderType));
     }
 }

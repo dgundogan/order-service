@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -50,4 +51,16 @@ public class ErrorHandler {
         log.error("Error:",errors);
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<ErrorResponse> handle(BindException e) {
+        ErrorResponse errors = new ErrorResponse();
+        ErrorItem error = new ErrorItem();
+        error.setCode(HttpStatus.BAD_REQUEST.toString());
+        error.setMessage("Request Body is wrong:" + e.getMessage());
+        errors.setErrorItem(error);
+        log.error("Error:",errors);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
 }

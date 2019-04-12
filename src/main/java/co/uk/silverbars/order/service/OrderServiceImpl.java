@@ -5,6 +5,7 @@ import co.uk.silverbars.order.domain.Order;
 import co.uk.silverbars.order.dto.request.RequestDto;
 import co.uk.silverbars.order.dto.response.ResponseDto;
 import co.uk.silverbars.order.repository.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository repository;
@@ -25,10 +27,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addOrder(RequestDto request) {
+    public void addOrder(RequestDto request){
         //Transform from dto to entity object
         Order order = new Order();
         BeanUtils.copyProperties(request, order);
+        //Other alternative is object mapper but I prefer copy objecct for performance
+        //private  ObjectMapper objectMapper;
+        //objectMapper = new ObjectMapper();
+        //Order order = objectMapper.readValue(objectMapper.writeValueAsString(request),Order.class);
         //Register an order
         this.repository.save(order);
     }
@@ -49,10 +55,11 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.groupingBy(Order::getPrice,Collectors.summingDouble(Order::getQuantity)))
                 .entrySet().stream()
                 .map(it -> ResponseDto.builder().price(it.getKey()).totalQuantity(it.getValue()).build());
-
+        log.info(result.toString());
         //if orderType is SELL, it returns natural sorted bu price
         //else orderType is BUY, it returns reversed order by price
         if(OrderType.SELL.equals(orderType)){
+            log.info(orderType.name());
             return result
                     .sorted(Comparator.comparingDouble(ResponseDto::getPrice))
                     .collect(Collectors.toList());
