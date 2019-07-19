@@ -42,7 +42,7 @@ public class OrderControllerIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
         objectMapper = new ObjectMapper();
     }

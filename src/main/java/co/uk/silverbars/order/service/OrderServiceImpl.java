@@ -40,6 +40,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<ResponseDto> getOrderSummary(OrderType orderType) {
+
         Stream<ResponseDto>  result = this.repository.findAll().stream()
                 .filter(item -> item.getOrderType().equals(orderType))
                 .collect(Collectors.groupingBy(Order::getPrice,Collectors.summingDouble(Order::getQuantity)))
