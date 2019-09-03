@@ -2,11 +2,12 @@ package co.uk.silverbars.order.service;
 
 import co.uk.silverbars.order.constant.OrderType;
 import co.uk.silverbars.order.dto.request.RequestDto;
+import co.uk.silverbars.order.dto.response.ResponseDto;
 
-import java.util.Map;
+import java.util.List;
 
 public interface OrderService {
     void addOrder(RequestDto orderDto);
     void deleteOrder(long orderId);
-    Map<Long, Double> getOrderSummary(OrderType orderType);
+    List<ResponseDto> getOrderSummary(OrderType orderType);
 }
